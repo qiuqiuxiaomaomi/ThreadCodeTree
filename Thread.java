@@ -71,6 +71,7 @@ public class Thread implements Runnable {
         }
     }
 
+	线程的优先级
     public final static int MIN_PRIORITY = 1;
 
     public final static int NORM_PRIORITY = 5;
@@ -79,6 +80,7 @@ public class Thread implements Runnable {
 
     public static native Thread currentThread();
 
+	挂起让步
     public static native void yield();
 
     public static native void sleep(long millis) throws InterruptedException;
@@ -174,35 +176,6 @@ public class Thread implements Runnable {
 
     public Thread(Runnable target) {
         init(null, target, "Thread-" + nextThreadNum(), 0);
-    }
-
-    Thread(Runnable target, AccessControlContext acc) {
-        init(null, target, "Thread-" + nextThreadNum(), 0, acc);
-    }
-
-    public Thread(ThreadGroup group, Runnable target) {
-        init(group, target, "Thread-" + nextThreadNum(), 0);
-    }
-
-    public Thread(String name) {
-        init(null, null, name, 0);
-    }
-
-    public Thread(ThreadGroup group, String name) {
-        init(group, null, name, 0);
-    }
-
-    public Thread(Runnable target, String name) {
-        init(null, target, name, 0);
-    }
-
-    public Thread(ThreadGroup group, Runnable target, String name) {
-        init(group, target, name, 0);
-    }
-
-    public Thread(ThreadGroup group, Runnable target, String name,
-                  long stackSize) {
-        init(group, target, name, stackSize);
     }
 
     public synchronized void start() {
@@ -418,18 +391,6 @@ public class Thread implements Runnable {
 
     public static void dumpStack() {
         new Exception("Stack trace").printStackTrace();
-    }
-
-    public final void setDaemon(boolean on) {
-        checkAccess();
-        if (isAlive()) {
-            throw new IllegalThreadStateException();
-        }
-        daemon = on;
-    }
-
-    public final boolean isDaemon() {
-        return daemon;
     }
 
     public final void checkAccess() {
